@@ -9,7 +9,6 @@
 
 // ARM, PB12 (PPM)      => Arduino, 3 (PPM)
 #define PIN_PPM 3
-
 #define BIT_START 0
 #define BIT_DATA 1
 #define BIT_STOP 4
