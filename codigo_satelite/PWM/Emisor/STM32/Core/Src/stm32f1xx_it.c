@@ -27,7 +27,7 @@
 
 /* Private typedef -----------------------------------------------------------*/
 /* USER CODE BEGIN TD */
-
+#include "uart.h"
 /* USER CODE END TD */
 
 /* Private define ------------------------------------------------------------*/

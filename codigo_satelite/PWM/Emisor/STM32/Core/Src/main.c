@@ -21,11 +21,15 @@
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 #include "tim.h"
+#include "usart.h"
 #include "gpio.h"
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "uart.h"
+#include "transmisor.h"
 
+#define leer_pin_pulsador() HAL_GPIO_ReadPin(pulsador_GPIO_Port, pulsador_Pin)
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -35,6 +39,7 @@
 
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
+
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -88,23 +93,31 @@ int main(void)
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_TIM4_Init();
+  MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
+
+  HAL_TIM_Base_Start_IT(&htim4);
 
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
-  HAL_TIM_Base_Start(&htim4);
-  HAL_TIM_PWM_Start(&htim4, TIM_CHANNEL_1); //inicio señal Pwm PB6
-
   while (1)
   {
-    for (int pwm = 0; pwm < 1001; pwm +=500) //relacionado con el counter period
+    if (leer_pin_pulsador() == GPIO_PIN_SET)
     {
-      __HAL_TIM_SET_COMPARE(&htim4, TIM_CHANNEL_1, pwm);
-      HAL_Delay(150);
-    }
+      HAL_Delay(10);
 
+      if (leer_pin_pulsador() == GPIO_PIN_SET)
+      {
+        while (leer_pin_pulsador() == GPIO_PIN_SET)
+          ;
+
+        send("Holas");
+        send_byte(4);
+        while(can_send == SENDING);
+      }
+    }
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -150,7 +163,6 @@ void SystemClock_Config(void)
 }
 
 /* USER CODE BEGIN 4 */
-
 /* USER CODE END 4 */
 
 /**

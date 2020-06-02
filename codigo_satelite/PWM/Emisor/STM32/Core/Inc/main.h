@@ -58,8 +58,10 @@ void Error_Handler(void);
 /* USER CODE END EFP */
 
 /* Private defines -----------------------------------------------------------*/
-#define PWM_Pin_Pin GPIO_PIN_6
-#define PWM_Pin_GPIO_Port GPIOB
+#define PWM_pin_Pin GPIO_PIN_12
+#define PWM_pin_GPIO_Port GPIOB
+#define pulsador_Pin GPIO_PIN_6
+#define pulsador_GPIO_Port GPIOB
 /* USER CODE BEGIN Private defines */
 
 /* USER CODE END Private defines */
