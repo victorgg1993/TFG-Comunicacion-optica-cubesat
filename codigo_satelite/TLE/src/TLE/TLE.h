@@ -14,32 +14,19 @@ extern "C"
 
 #include "TLE_defines.h"
 
-	// Struct
-	typedef struct TLE
-	{
-		char title[SIZE_LINE_TITLE];
-		char line1[14][12]; // [Y][X]
-		char line2[70];		// trabajar, no tenemos que estar sumando y restando índices
-	} TLE;
+	// variables globales
+	char title[SIZE_LINE_TITLE];
+	char line1[SIZE_LINES];
+	char line2[SIZE_LINES];
 
-	TLE protocolo_TLE;
-
-	// Funciones Title
-	void set_title(char *titol);
-	char *get_title();
-
-	// Funciones Line 1
-	char *get_line1();
-
-	void set_line1_params(int opcion, char *text);
-	char *get_line1_params(int opcion);
-
-	// Funciones Line 2
-	void set_line2_params(int opcion, char *text);
-	char *get_line2_params(int opcion);
+	// Title, Line1, Line2
+	void init_lines();
+	void set_line(int opcion, char *text);
+	char *get_line(int opcion, char *arr_t);
 
 	// Otros
-	void TLE_set_string(int opcio, int n_linia, char *origen, int tamany);
+	void TLE_set_string(int opcio, char *arr_t, int origen, int _final);
+	char *TLE_get_string(int opcio, char *arr_t, int origen, int _final);
 
 #ifdef __cplusplus
 }
