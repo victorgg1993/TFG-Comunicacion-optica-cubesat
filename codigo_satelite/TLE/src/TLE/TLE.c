@@ -1,118 +1,256 @@
 #include <string.h>
 #include "TLE.h"
 
-// -------------------------------------- Title
-void set_title(char *text) // done
+void init_lines()
 {
-    TLE_set_string(LINE_TITLE, 0, text, SIZE_LINE_TITLE);
-}
-
-char *get_title() // done
-{
-    return protocolo_TLE.title;
-}
-
-// -------------------------------------- Line 1
-char *get_line1() // to-do
-{
-    return "devolverá el string tal como dice el estándar";
-}
-
-void set_line1_params(int opcion, char *text) // done
-{
-    switch (opcion)
+    for (int i = 0; i < SIZE_LINE_TITLE; i++)
     {
-    case CLASSIFICATION:
-        protocolo_TLE.line1[opcion][0] = text;
-        break;
+        title[i] = ' ';
+    }
 
-    case CATALOG_NUM:
-    case INTER_DESIGN_LAUNCH_YEAR:
-    case INTER_DESIGN_NUM_YEAR:
-    case INTER_DESIGN:
-    case EPOCH_YEAR:
-    case EPOCH_DAY:
-    case FIRST_DERIV_MEAN_MOTION:
-    case SECOND_DERIV_MEARN_MOTION:
-    case DRAG_TERM:
-    case EPHEM_TYPE:
-    case ELEM_SET_NUM:
-    case CHECKSUM:
-        TLE_set_string(LINE_LINE1, opcion, text, strlen(text));
-        break;
+    for (int i = 0; i < SIZE_LINES; i++)
+    {
+        if (i == LINE1_NUM)
+        {
+            line1[i] = '1';
+            continue;
+        }
+
+        line1[i] = ' ';
+    }
+
+    for (int i = 0; i < SIZE_LINES; i++)
+    {
+        if (i == LINE2_NUM)
+        {
+            line2[i] = '2';
+            continue;
+        }
+        line2[i] = ' ';
     }
 }
 
-char *get_line1_params(int opcion) // done
+// -------------------------------------- Title, Line 1, Line2
+void set_line(int opcion, char *text) // Done
 {
+    int pos_inicio = opcion;
+    int pos_final = 0;
+
     switch (opcion)
     {
-    case LINE_NUMBER:
-        return '1';
+    // Genéricos
+    case LINE_TITLE:
+        TLE_set_string(LINE_TITLE, text, 0, strlen(text));
+        return;
 
-    case CLASSIFICATION:
-        return protocolo_TLE.line1[CLASSIFICATION][0];
+    case LINE1:
+        pos_inicio = 0;
+        pos_final = SIZE_LINES - 1; //strlen(text);
+        break;
 
-    case CATALOG_NUM:
-    case INTER_DESIGN_LAUNCH_YEAR:
-    case INTER_DESIGN_NUM_YEAR:
-    case INTER_DESIGN:
-    case EPOCH_YEAR:
-    case EPOCH_DAY:
-    case FIRST_DERIV_MEAN_MOTION:
-    case SECOND_DERIV_MEARN_MOTION:
-    case DRAG_TERM:
-    case EPHEM_TYPE:
-    case ELEM_SET_NUM:
-    case CHECKSUM:
-        return protocolo_TLE.line1[opcion];
+    case LINE2:
+        TLE_set_string(LINE_LINE2, text, 0, SIZE_LINES - 1);
+        return;
+
+    // Line 1
+    case LINE1_CLASSIFICATION:
+        pos_final = LINE1_CLASSIFICATION_END;
+        break;
+
+    case LINE1_CATALOG_NUM:
+        pos_final = LINE1_CATALOG_NUM_END;
+        break;
+
+    case LINE1_INTERN_DES_LAUNCH_YEAR:
+        pos_final = LINE1_INTERN_DES_LAUNCH_YEAR_END;
+        break;
+
+    case LINE1_INTERN_DES_LAUNCH_NUM_YEAR:
+        pos_final = LINE1_INTERN_DES_LAUNCH_NUM_YEAR_END;
+        break;
+
+    case LINE1_INTERN_DESIGN:
+        pos_final = LINE1_INTERN_DESIGN_END;
+        break;
+
+    case LINE1_EPOCH_YEAR:
+        pos_final = LINE1_EPOCH_YEAR_END;
+        break;
+
+    case LINE1_EPOCH_DAY:
+        pos_final = LINE1_EPOCH_DAY_END;
+        break;
+
+    case LINE1_FIRST_DERIV_MEAN_MOTION:
+        pos_final = LINE1_FIRST_DERIV_MEAN_MOTION_END;
+        break;
+
+    case LINE1_SECOND_DERIV_MEAN_MOTION:
+        pos_final = LINE1_SECOND_DERIV_MEAN_MOTION_END;
+        break;
+
+    case LINE1_DRAG_TERM_COEF:
+        pos_final = LINE1_DRAG_TERM_COEF_END;
+        break;
+
+    case LINE1_EPHEMERIS:
+        pos_final = LINE1_EPHEMERIS_END;
+        break;
+
+    case LINE1_ELEM_SET_NUM:
+        pos_final = LINE1_ELEM_SET_NUM_END;
+        break;
+
+    case LINE1_CHECKSUM:
+        pos_final = LINE1_CHECKSUM_END;
+        break;
+
+        // Line 2
     }
 
-    return "ERROR";
+    TLE_set_string(LINE_LINE1, text, pos_inicio, pos_final);
 }
 
-// -------------------------------------- Line 2
-void set_line2_params(int opcion, char *text) // to-do
+char *get_line(int opcion, char *arr_t) // Done
 {
-    
-}
+    int pos_final = 0;
 
-char *get_line2_params(int opcion) // to-do
-{
-    return "ok";
+    switch (opcion)
+    {
+    // Genéricos
+    case LINE_TITLE:
+        return TLE_get_string(LINE_TITLE, arr_t, 0, SIZE_LINE_TITLE - 1); //strlen(title));
+
+    case LINE1:
+        opcion = 0;
+        pos_final = SIZE_LINES - 1;
+        break;
+
+    case LINE2:
+        pos_final = SIZE_LINES - 1;
+        return TLE_get_string(LINE_LINE2, arr_t, 0, pos_final);
+
+    // Line 1
+    case LINE1_NUM:
+        return "1";
+    case LINE1_CLASSIFICATION:
+        pos_final = LINE1_CLASSIFICATION;
+        break;
+    case LINE1_CATALOG_NUM:
+        pos_final = LINE1_CATALOG_NUM_END;
+        break;
+    case LINE1_INTERN_DES_LAUNCH_YEAR:
+        pos_final = LINE1_INTERN_DES_LAUNCH_YEAR_END;
+        break;
+    case LINE1_INTERN_DES_LAUNCH_NUM_YEAR:
+        pos_final = LINE1_INTERN_DES_LAUNCH_NUM_YEAR_END;
+        break;
+    case LINE1_INTERN_DESIGN:
+        pos_final = LINE1_INTERN_DESIGN_END;
+        break;
+    case LINE1_EPOCH_YEAR:
+        pos_final = LINE1_EPOCH_YEAR_END;
+        break;
+    case LINE1_EPOCH_DAY:
+        pos_final = LINE1_EPOCH_DAY_END;
+        break;
+    case LINE1_FIRST_DERIV_MEAN_MOTION:
+        pos_final = LINE1_FIRST_DERIV_MEAN_MOTION_END;
+        break;
+    case LINE1_SECOND_DERIV_MEAN_MOTION:
+        pos_final = LINE1_SECOND_DERIV_MEAN_MOTION_END;
+        break;
+    case LINE1_DRAG_TERM_COEF:
+        pos_final = LINE1_DRAG_TERM_COEF_END;
+        break;
+    case LINE1_EPHEMERIS:
+        pos_final = LINE1_EPHEMERIS_END;
+        break;
+    case LINE1_ELEM_SET_NUM:
+        pos_final = LINE1_ELEM_SET_NUM_END;
+        break;
+    case LINE1_CHECKSUM:
+        pos_final = LINE1_CHECKSUM_END;
+        break;
+
+        // Line 2
+    }
+
+    return TLE_get_string(LINE_LINE1, arr_t, opcion, pos_final);
 }
 
 // Otros
-
-void TLE_set_string(int opcio, int n_linia, char *origen, int tamany)
+void TLE_set_string(int opcio, char *arr_t, int origen, int _final)
 {
+    int j = 0;
+    int i = 0;
     switch (opcio)
     {
     case LINE_TITLE:
-
-        for (int i = 0; i < tamany; i++)
+        for (i = origen; i < _final; i++)
         {
-            protocolo_TLE.title[i] = origen[i];
+            title[i] = arr_t[i];
         }
+        title[i] = 0x00;
         break;
 
     case LINE_LINE1:
 
-        for (int i = 0; i < tamany; i++)
+        for (i = origen; i <= _final; i++)
         {
-            protocolo_TLE.line1[n_linia][i] = origen[i];
+            line1[i] = arr_t[j];
+            j++;
         }
         break;
 
     case LINE_LINE2:
 
-        for (int i = 0; i < tamany; i++)
+        for (i = origen; i <= _final; i++)
         {
-            protocolo_TLE.line2[i] = origen[i];
+            line2[i] = arr_t[j];
+            j++;
         }
         break;
 
     default:
         break;
     }
+}
+
+char *TLE_get_string(int opcio, char *arr_t, int origen, int _final)
+{
+    int j = 0;
+
+    switch (opcio)
+    {
+    case LINE_TITLE:
+
+        for (int i = origen; i < _final; i++)
+        {
+            arr_t[j] = title[i];
+            j++;
+        }
+        break;
+
+    case LINE_LINE1:
+
+        for (int i = origen; i <= _final; i++)
+        {
+            arr_t[j] = line1[i];
+            j++;
+        }
+        break;
+
+    case LINE_LINE2:
+
+        for (int i = origen; i <= _final; i++)
+        {
+            arr_t[j] = line2[i];
+            j++;
+        }
+        break;
+    }
+
+    arr_t[j] = 0;
+    return arr_t;
 }
