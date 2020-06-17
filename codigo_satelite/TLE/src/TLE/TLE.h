@@ -14,19 +14,9 @@ extern "C"
 
 #include "TLE_defines.h"
 
-	// variables globales
-	char title[SIZE_LINE_TITLE];
-	char line1[SIZE_LINES];
-	char line2[SIZE_LINES];
-
-	// Title, Line1, Line2
-	void init_lines();
-	void set_line(int opcion, char *text);
-	char *get_line(int opcion, char *arr_t);
-
-	// Otros
-	void TLE_set_string(int opcio, char *arr_t, int origen, int _final);
-	char *TLE_get_string(int opcio, char *arr_t, int origen, int _final);
+	void init_line(int opcion, char *_array); // qué linea tocar (title, line1, line2), array de la línea
+	void set_line(int opcion, char *text, char* arr_retorno); //(title, line1, line2), texto a cambiar, retorno línea cambiada
+	char *get_line(int opcion, char *arr_envio); //(title, line1, line2), retorno línea cambiada
 
 #ifdef __cplusplus
 }
