@@ -8,20 +8,13 @@
 #define _TLE_defines_h_
 
 // ------------------------------------------------------------------------- Defines genéricos
-#define OK 0
-#define ERROR 1
+#define LINE_TITLE 72 // cualquier número que no esté ocupado (1~69)
+#define LINE1 73
+#define LINE2 74
 
-#define LINE_TITLE 0
-#define LINE_LINE1 1
-#define LINE_LINE2 2
-
-#define LINE1 111
-#define LINE2 222
-
-#define SIZE_LINES 70
+#define SIZE_LINES 71
 
 // ------------------------------------------------------------------------- Defines Title
-#define POS_LINE_TITLE 0
 #define SIZE_LINE_TITLE 24
 
 // ------------------------------------------------------------------------- Defines Line 1
@@ -31,19 +24,14 @@
 #define LINE1_CATALOG_NUM_END 7
 
 #define LINE1_CLASSIFICATION 8 // 8. Classification (U=Unclassified, C=Classified, S=Secret)
-#define LINE1_CLASSIFICATION_END 8
 
 #define LINE1_INTERN_DES_LAUNCH_YEAR 10 // 10~11. International Designator (last two digits of launch year)
-#define LINE1_INTERN_DES_LAUNCH_YEAR_END 11
 
 #define LINE1_INTERN_DES_LAUNCH_NUM_YEAR 12 // 12~14. International Designator (launch number of the year)
-#define LINE1_INTERN_DES_LAUNCH_NUM_YEAR_END 14
 
 #define LINE1_INTERN_DESIGN 15 // 15~17. International Designator (piece of the launch)
-#define LINE1_INTERN_DESIGN_END 17
 
 #define LINE1_EPOCH_YEAR 19 // 19~20. Epoch Year (last two digits of year)
-#define LINE1_EPOCH_YEAR_END 20
 
 #define LINE1_EPOCH_DAY 21 // 21~32. Epoch (day of the year and fractional portion of the day)
 #define LINE1_EPOCH_DAY_END 32
@@ -58,13 +46,11 @@
 #define LINE1_DRAG_TERM_COEF_END 61
 
 #define LINE1_EPHEMERIS 63 // 63. Ephemeris type (internal use only - always zero in distributed TLE data) [13]
-#define LINE1_EPHEMERIS_END 63
 
 #define LINE1_ELEM_SET_NUM 65 // 65~68. Element set number. Incremented when a new TLE is generated for this object.
 #define LINE1_ELEM_SET_NUM_END 68
 
 #define LINE1_CHECKSUM 69 // 69. Checksum (modulo 10)
-#define LINE1_CHECKSUM_END 69
 
 // ------------------------------------------------------------------------- Defines Line 2
 #define LINE2_NUM 1 // Line number
@@ -94,6 +80,5 @@
 #define LINE2_REVOLUTIONS_END 68
 
 #define LINE2_CHECKSUM 69 // 69. Checksum (modulo 10)
-#define LINE2_CHECKSUM_END 69
 
 #endif
