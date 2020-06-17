@@ -37,24 +37,30 @@ void set_line(int opcion, char *text, char *arr_retorno)
     // Line 1
     case LINE1_CLASSIFICATION: // 1 solo char
     case LINE1_EPHEMERIS:
-    case LINE1_CHECKSUM:
+    case LINE1_CHECKSUM:    // también case LINE2_CHECKSUM:
         pos_final = opcion;
         break;
 
-    case LINE1_INTERN_DES_LAUNCH_YEAR: // 2 chars
+    case LINE1_INTERN_DES_LAUNCH_YEAR: //2 chars
     case LINE1_EPOCH_YEAR:
     case LINE1_INTERN_DES_LAUNCH_NUM_YEAR: // 3 chars
     case LINE1_INTERN_DESIGN:
-    case LINE1_CATALOG_NUM:
-    case LINE1_EPOCH_DAY:
-    case LINE1_FIRST_DERIV_MEAN_MOTION:
-    case LINE1_SECOND_DERIV_MEAN_MOTION:
+    case LINE1_ELEM_SET_NUM: // 4 chars
+    // 5 chars
+    case LINE1_CATALOG_NUM: // también case LINE2_CATALOG_NUM:
+    case LINE2_REVOLUTIONS:
+    case LINE2_ECCENTRICITY:             // 7 chars
+    case LINE1_SECOND_DERIV_MEAN_MOTION: // 8 chars
     case LINE1_DRAG_TERM_COEF:
-    case LINE1_ELEM_SET_NUM:
-        pos_final = opcion + strlen(text)-1;
+    case LINE2_INCLINATION:
+    case LINE2_RIGHT_ASCEN:
+    case LINE2_PERIGEE:
+    case LINE2_MEAN_ANOMALY:
+    case LINE1_FIRST_DERIV_MEAN_MOTION: // 10 chars
+    case LINE2_MEAN_MOTION:             // 11 chars
+    case LINE1_EPOCH_DAY:               // 12 chars
+        pos_final = opcion + strlen(text) - 1;
         break;
-
-        // Line 2
     }
 
     int j = 0;
@@ -73,7 +79,6 @@ char *get_line(int opcion, char *arr_lectura)
 
     switch (opcion)
     {
-    // Genéricos
     case LINE_TITLE:
         opcion = 0;
         pos_final = SIZE_LINE_TITLE;
@@ -85,11 +90,10 @@ char *get_line(int opcion, char *arr_lectura)
         pos_final = (SIZE_LINES - 1);
         break;
 
-    // Line 1
-    case LINE1_NUM:
+    case LINE1_NUM: // también case LINE2_NUM:
     case LINE1_CLASSIFICATION: // 1 solo char
     case LINE1_EPHEMERIS:
-    case LINE1_CHECKSUM:
+    case LINE1_CHECKSUM:   // también case LINE2_CHECKSUM:
         pos_final = opcion;
         break;
 
@@ -98,36 +102,45 @@ char *get_line(int opcion, char *arr_lectura)
         pos_final = (opcion + 1);
         break;
 
-    case LINE1_CATALOG_NUM:
-        pos_final = LINE1_CATALOG_NUM_END;
-        break;
-
-    case LINE1_INTERN_DES_LAUNCH_NUM_YEAR:
+    case LINE1_INTERN_DES_LAUNCH_NUM_YEAR: // 3 chars
     case LINE1_INTERN_DESIGN:
         pos_final = (opcion + 2);
         break;
 
-    case LINE1_EPOCH_DAY:
-        pos_final = LINE1_EPOCH_DAY_END;
+    case LINE1_ELEM_SET_NUM: // 4 chars
+        pos_final = (opcion + 3);
         break;
 
-    case LINE1_FIRST_DERIV_MEAN_MOTION:
-        pos_final = LINE1_FIRST_DERIV_MEAN_MOTION_END;
+        // 5 chars
+    case LINE1_CATALOG_NUM: // también case LINE2_CATALOG_NUM: , son el mismo
+    case LINE2_REVOLUTIONS:
+        pos_final = (opcion + 4);
         break;
 
-    case LINE1_SECOND_DERIV_MEAN_MOTION:
-        pos_final = LINE1_SECOND_DERIV_MEAN_MOTION_END;
+    case LINE2_ECCENTRICITY: // 7 chars
+        pos_final = (opcion + 6);
         break;
 
+    case LINE1_SECOND_DERIV_MEAN_MOTION: // 8 chars
     case LINE1_DRAG_TERM_COEF:
-        pos_final = LINE1_DRAG_TERM_COEF_END;
+    case LINE2_INCLINATION:
+    case LINE2_RIGHT_ASCEN:
+    case LINE2_PERIGEE:
+    case LINE2_MEAN_ANOMALY:
+        pos_final = (opcion + 7);
         break;
 
-    case LINE1_ELEM_SET_NUM:
-        pos_final = LINE1_ELEM_SET_NUM_END;
+    case LINE1_FIRST_DERIV_MEAN_MOTION: // 10 chars
+        pos_final = (opcion + 9);
         break;
 
-        // Line 2
+    case LINE2_MEAN_MOTION: // 11 chars
+        pos_final = (opcion + 10);
+        break;
+
+    case LINE1_EPOCH_DAY: // 12 chars
+        pos_final = (opcion + 11);
+        break;
     }
 
     for (int i = opcion; i <= pos_final; i++)
