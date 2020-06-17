@@ -59,7 +59,7 @@
 #define LINE2_CATALOG_NUM_END 7
 
 #define LINE2_INCLINATION 9		 // 9~16. Inclination (degrees)
-#define LINE2_INCLINATION_END 16 // 9~16. Inclination (degrees)
+#define LINE2_INCLINATION_END 16
 
 #define LINE2_RIGHT_ASCEN 18 // 18~25. Right Ascension of the Ascending Node (degrees)
 #define LINE2_RIGHT_ASCEN_END 25
