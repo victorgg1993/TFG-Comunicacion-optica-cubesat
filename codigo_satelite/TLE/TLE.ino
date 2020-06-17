@@ -101,21 +101,67 @@ void setup()
   Serial.print("Checksum: 7.    Recibido: ");
   set_line(LINE1_CHECKSUM, "7", line1);
   Serial.println(get_line(LINE1_CHECKSUM, line1));
+
   // Line1 completa
   Serial.print("Line 1 completa: ");
-  Serial.println(line1); //todavía no va perfectamente
+  Serial.println(line1);
 
-/*
-// usado para debuggear
-  for (int i = 0; i < SIZE_LINES; i++)
-  {
-    Serial.print(i);
-    Serial.print(": ");
-    Serial.print((char)line1[i], DEC);
-    Serial.println("");
-  }
+  // Line 2
+  Serial.println("-----------------Line 2-----------------\n");
+
+  // Line number
+  Serial.print("Line number recibido: ");
+  Serial.println(get_line(LINE2_NUM, line2));
+
+  // Satellite Catalog number
+  Serial.print("Catalog number escrito: 25544.    Recibido: ");
+  set_line(LINE2_CATALOG_NUM, "25544", line2);
+  Serial.println(get_line(LINE2_CATALOG_NUM, line2));
+
+  // Inclination (degrees)
+  Serial.print("Inclination degrees escrito: 51.6416.    Recibido: ");
+  set_line(LINE2_INCLINATION, "51.6416", line2);
+  Serial.println(get_line(LINE2_INCLINATION, line2));
+
+  // Right Ascension of the Ascending Node (degrees)
+  Serial.print("Right Ascension Ascen. Node escrito: 247.4627.    Recibido: ");
+  set_line(LINE2_RIGHT_ASCEN, "247.4627", line2);
+  Serial.println(get_line(LINE2_RIGHT_ASCEN, line2));
+
+  // Eccentricity (decimal point assumed)
+  Serial.print("Eccentricity escrito: 0006703.    Recibido: ");
+  set_line(LINE2_ECCENTRICITY, "0006703", line2);
+  Serial.println(get_line(LINE2_ECCENTRICITY, line2));
+
+  // Argument of Perigee (degrees)
+  Serial.print("Eccentricity escrito: 130.5360.    Recibido: ");
+  set_line(LINE2_PERIGEE, "130.5360", line2);
+  Serial.println(get_line(LINE2_PERIGEE, line2));
+
+  // Mean Anomaly (degrees)
+  Serial.print("Mean Anomaly escrito: 325.0288.    Recibido: ");
+  set_line(LINE2_MEAN_ANOMALY, "325.0288", line2);
+  Serial.println(get_line(LINE2_MEAN_ANOMALY, line2));
+
+  // Mean Motion (revolutions per day)
+  Serial.print("Mean Motion escrito: 15.72125391.    Recibido: ");
+  set_line(LINE2_MEAN_MOTION, "15.72125391", line2);
+  Serial.println(get_line(LINE2_MEAN_MOTION, line2));
+
+  // Revolution number at epoch (revolutions)
+  Serial.print("Mean Motion escrito: 56353.    Recibido: ");
+  set_line(LINE2_REVOLUTIONS, "56353", line2);
+  Serial.println(get_line(LINE2_REVOLUTIONS, line2));
+
+  // Checksum (modulo 10)
+  Serial.print("Mean Motion escrito: 7.    Recibido: ");
+  set_line(LINE2_CHECKSUM, "7", line2);
+  Serial.println(get_line(LINE2_CHECKSUM, line2));
+
+  // Line2 completa
+  Serial.print("Line 2 completa: ");
+  Serial.println(line2);
 }
-*/
 
 void loop()
 {
