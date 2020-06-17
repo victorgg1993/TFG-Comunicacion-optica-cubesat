@@ -9,107 +9,113 @@
 
 void setup()
 {
-  init_lines(); // las limpiamos
+  char title[SIZE_LINES];
+  char line1[SIZE_LINES];
+  char line2[SIZE_LINES];
+
+  init_line(LINE_TITLE, title); // las limpiamos
+  init_line(LINE1, line1);
+  init_line(LINE2, line2);
 
   Serial.begin(9600);
+
   Serial.println("------------------------------------");
   Serial.println("Ejemplo implementación protocolo TLE");
   Serial.println("------------------------------------\n\n");
 
- 
   // Title
   Serial.println("-----------------Title-----------------\n");
   Serial.print("Título escrito: hola mundo    Título recibido: ");
-  char text[SIZE_LINE_TITLE];
-  set_line(LINE_TITLE, "hola mundo");
-  Serial.println(get_line(LINE_TITLE, text));
- 
+  set_line(LINE_TITLE, "hola mundo", title);
+  Serial.println(get_line(LINE_TITLE, title));
 
   // Line 1
   Serial.println("-----------------Line 1-----------------\n");
 
   // Line title
-  char s_temp[SIZE_LINES];
-
   Serial.print("Line number recibido: ");
-  Serial.println(get_line(LINE1_NUM, s_temp));
+  Serial.println(get_line(LINE1_NUM, line1));
 
   // Catalog number
-  Serial.print("Catalog number escrito: 25544    Recibido: ");
-  set_line(LINE1_CATALOG_NUM, "25544");
-  Serial.println(get_line(LINE1_CATALOG_NUM, s_temp));
+  Serial.print("Catalog number escrito: 25544.    Recibido: ");
+  set_line(LINE1_CATALOG_NUM, "25544", line1);
+  Serial.println(get_line(LINE1_CATALOG_NUM, line1));
 
   // Classification
-  Serial.print("Classification escrito: U    Recibido: ");
-  set_line(LINE1_CLASSIFICATION, "U");
-  Serial.println(get_line(LINE1_CLASSIFICATION, s_temp));
+  Serial.print("Classification escrito: U.    Recibido: ");
+  set_line(LINE1_CLASSIFICATION, "U", line1);
+  Serial.println(get_line(LINE1_CLASSIFICATION, line1));
 
   // Launch year
-  Serial.print("Launch year escrito: 98    Recibido: ");
-  set_line(LINE1_INTERN_DES_LAUNCH_YEAR, "98");
-  Serial.println(get_line(LINE1_INTERN_DES_LAUNCH_YEAR, s_temp));
+  Serial.print("Launch year escrito: 98.    Recibido: ");
+  set_line(LINE1_INTERN_DES_LAUNCH_YEAR, "98", line1);
+  Serial.println(get_line(LINE1_INTERN_DES_LAUNCH_YEAR, line1));
 
   // Num year
-  Serial.print("Num year escrito: 067    Recibido: ");
-  set_line(LINE1_INTERN_DES_LAUNCH_NUM_YEAR, "067");
-  Serial.println(get_line(LINE1_INTERN_DES_LAUNCH_NUM_YEAR, s_temp));
+  Serial.print("Num year escrito: 067.    Recibido: ");
+  set_line(LINE1_INTERN_DES_LAUNCH_NUM_YEAR, "067", line1);
+  Serial.println(get_line(LINE1_INTERN_DES_LAUNCH_NUM_YEAR, line1));
 
   // International designator
-  Serial.print("International designator escrito: A  .  Recibido: ");
-  set_line(LINE1_INTERN_DESIGN, "A  ");
-  Serial.println(get_line(LINE1_INTERN_DESIGN, s_temp));
+  Serial.print("International designator escrito: A.  Recibido: ");
+  set_line(LINE1_INTERN_DESIGN, "A", line1);
+  Serial.println(get_line(LINE1_INTERN_DESIGN, line1));
 
   // Epoch year
-  Serial.print("Epoch year escrito: 08    Recibido: ");
-  set_line(LINE1_EPOCH_YEAR, "08");
-  Serial.println(get_line(LINE1_EPOCH_YEAR, s_temp));
+  Serial.print("Epoch year escrito: 08.    Recibido: ");
+  set_line(LINE1_EPOCH_YEAR, "08", line1);
+  Serial.println(get_line(LINE1_EPOCH_YEAR, line1));
 
   // Epoch day
-  Serial.print("Epoch day escrito: 264.51782528    Recibido: ");
-  set_line(LINE1_EPOCH_DAY, "264.51782528");
-  Serial.println(get_line(LINE1_EPOCH_DAY, s_temp));
+  Serial.print("Epoch day escrito: 264.51782528.    Recibido: ");
+  set_line(LINE1_EPOCH_DAY, "264.51782528", line1);
+  Serial.println(get_line(LINE1_EPOCH_DAY, line1));
 
   // 1 derivative mean motion
-  Serial.print("First derivative mean motion: -.00002182    Recibido: ");
-  set_line(LINE1_FIRST_DERIV_MEAN_MOTION, "-.00002182");
-  Serial.println(get_line(LINE1_FIRST_DERIV_MEAN_MOTION, s_temp));
+  Serial.print("First derivative mean motion: -.00002182.    Recibido: ");
+  set_line(LINE1_FIRST_DERIV_MEAN_MOTION, "-.00002182", line1);
+  Serial.println(get_line(LINE1_FIRST_DERIV_MEAN_MOTION, line1));
 
   // 2 derivative mean motion
-  Serial.print("Second derivative mean motion: 00000-0    Recibido: ");
-  set_line(LINE1_SECOND_DERIV_MEAN_MOTION, "00000-0");
-  Serial.println(get_line(LINE1_SECOND_DERIV_MEAN_MOTION, s_temp));
+  Serial.print("Second derivative mean motion: 00000-0.    Recibido: ");
+  set_line(LINE1_SECOND_DERIV_MEAN_MOTION, "00000-0", line1);
+  Serial.println(get_line(LINE1_SECOND_DERIV_MEAN_MOTION, line1));
 
   // drag term
-  Serial.print("Drag term: -11606-4    Recibido: ");
-  set_line(LINE1_DRAG_TERM_COEF, "-11606-4");
-  Serial.println(get_line(LINE1_DRAG_TERM_COEF, s_temp));
+  Serial.print("Drag term: -11606-4.    Recibido: ");
+  set_line(LINE1_DRAG_TERM_COEF, "-11606-4", line1);
+  Serial.println(get_line(LINE1_DRAG_TERM_COEF, line1));
 
   // ephem type
-  Serial.print("Ephemeris type: 6    Recibido: ");
+  Serial.print("Ephemeris type: 6.    Recibido: ");
   char s10[1];
-  set_line(LINE1_EPHEMERIS, "6");
-  Serial.println(get_line(LINE1_EPHEMERIS, s_temp));
+  set_line(LINE1_EPHEMERIS, "6", line1);
+  Serial.println(get_line(LINE1_EPHEMERIS, line1));
 
   // Element set number
-  Serial.print("Element set number: 292    Recibido: ");
-  set_line(LINE1_ELEM_SET_NUM, "292");
-  Serial.println(get_line(LINE1_ELEM_SET_NUM, s_temp));
+  Serial.print("Element set number: 292.    Recibido: ");
+  set_line(LINE1_ELEM_SET_NUM, "292", line1);
+  Serial.println(get_line(LINE1_ELEM_SET_NUM, line1));
 
   // checksum
-  Serial.print("Checksum: 7    Recibido: ");
-  set_line(LINE1_CHECKSUM, "7");
-  Serial.println(get_line(LINE1_CHECKSUM, s_temp));
-
+  Serial.print("Checksum: 7.    Recibido: ");
+  set_line(LINE1_CHECKSUM, "7", line1);
+  Serial.println(get_line(LINE1_CHECKSUM, line1));
   // Line1 completa
   Serial.print("Line 1 completa: ");
-  //Serial.println(get_line(LINE1, s_temp)); //todavía no va perfectamente
+  Serial.println(line1); //todavía no va perfectamente
 
-  for(int i = 0 ; i < SIZE_LINES; i++)
+/*
+// usado para debuggear
+  for (int i = 0; i < SIZE_LINES; i++)
   {
-    Serial.print(line1[i]);
+    Serial.print(i);
+    Serial.print(": ");
+    Serial.print((char)line1[i], DEC);
+    Serial.println("");
   }
-
 }
+*/
 
 void loop()
 {
