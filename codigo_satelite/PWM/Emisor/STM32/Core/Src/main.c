@@ -112,11 +112,9 @@ int main(void)
         while (leer_pin_pulsador() == GPIO_PIN_SET)
           ;
 
-        send_byte(2); // señal de start (envía lo que quieras, es para empezar)
         while (can_send == SENDING)
           ;
 
-        //send("hola");
         send(line1);
         send_byte(4); // señal stop
         while (can_send == SENDING)
