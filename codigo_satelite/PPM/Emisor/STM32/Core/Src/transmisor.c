@@ -6,7 +6,7 @@ unsigned char can_send = 0;
 
 void send(unsigned char *texto)
 {
-	for (int i = 0; i < sizeof(texto);)
+	for (int i = 0; i < strlen(texto);)
 	{
 		send_byte(texto[i]);
 		i++;

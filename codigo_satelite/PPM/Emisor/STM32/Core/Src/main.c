@@ -1,21 +1,5 @@
 /* USER CODE BEGIN Header */
-/**
-  ******************************************************************************
-  * @file           : main.c
-  * @brief          : Main program body
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; Copyright (c) 2020 STMicroelectronics.
-  * All rights reserved.</center></h2>
-  *
-  * This software component is licensed by ST under BSD 3-Clause license,
-  * the "License"; You may not use this file except in compliance with the
-  * License. You may obtain a copy of the License at:
-  *                        opensource.org/licenses/BSD-3-Clause
-  *
-  ******************************************************************************
-  */
+#define leer_pin_pulsador() HAL_GPIO_ReadPin(pulsador_GPIO_Port, pulsador_Pin)
 /* USER CODE END Header */
 
 /* Includes ------------------------------------------------------------------*/
@@ -28,7 +12,7 @@
 /* USER CODE BEGIN Includes */
 #include "uart.h"
 #include "transmisor.h"
-
+#include "../../../../../TLE/src/TLE/TLE.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -60,7 +44,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+char line1[SIZE_LINES];
 /* USER CODE END 0 */
 
 /**
@@ -72,7 +56,6 @@ int main(void)
   /* USER CODE BEGIN 1 */
 
   /* USER CODE END 1 */
-  
 
   /* MCU Configuration--------------------------------------------------------*/
 
@@ -95,34 +78,48 @@ int main(void)
   MX_TIM4_Init();
   MX_USART1_UART_Init();
   /* USER CODE BEGIN 2 */
-
   HAL_TIM_Base_Start_IT(&htim4);
 
-  HAL_Delay(1500);
-
-  send_byte(2); // señal de start (envía lo que quieras, es para empezar)
-	while (can_send == SENDING);
-
-  send("hola");
-  send_byte(4); // señal stop
-
+  init_line(LINE1, line1);                                      // inicializar línea
+  set_line(LINE1_CATALOG_NUM, "25544", line1);                  // Catalog number
+  set_line(LINE1_CLASSIFICATION, "U", line1);                   // Classification
+  set_line(LINE1_INTERN_DES_LAUNCH_YEAR, "98", line1);          // Launch year
+  set_line(LINE1_INTERN_DES_LAUNCH_NUM_YEAR, "067", line1);     // Num year
+  set_line(LINE1_INTERN_DESIGN, "A", line1);                    // International designator
+  set_line(LINE1_EPOCH_YEAR, "08", line1);                      // Epoch year
+  set_line(LINE1_EPOCH_DAY, "264.51782528", line1);             // Epoch day
+  set_line(LINE1_FIRST_DERIV_MEAN_MOTION, "-.00002182", line1); // 1 derivative mean motion
+  set_line(LINE1_SECOND_DERIV_MEAN_MOTION, "00000-0", line1);   // 2 derivative mean motion
+  set_line(LINE1_DRAG_TERM_COEF, "-11606-4", line1);            // drag term
+  set_line(LINE1_EPHEMERIS, "6", line1);                        // ephem type
+  set_line(LINE1_ELEM_SET_NUM, "292", line1);                   // Element set number
+  set_line(LINE1_CHECKSUM, "7", line1);                         // checksum
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    /*
-    HAL_GPIO_WritePin(PPM_pin_GPIO_Port, PPM_pin_Pin, 1);
-    HAL_Delay(1000);
-    HAL_GPIO_WritePin(PPM_pin_GPIO_Port, PPM_pin_Pin, 0);
-    HAL_Delay(1000);
 
-    HAL_GPIO_WritePin(Trigger_pin_GPIO_Port, Trigger_pin_Pin, 1);
-    HAL_Delay(1000);
-    HAL_GPIO_WritePin(Trigger_pin_GPIO_Port, Trigger_pin_Pin, 0);
-    HAL_Delay(1000);
-    */
+    if (leer_pin_pulsador() == GPIO_PIN_SET)
+    {
+      HAL_Delay(10);
+
+      if (leer_pin_pulsador() == GPIO_PIN_SET)
+      {
+        while (leer_pin_pulsador() == GPIO_PIN_SET)
+          ;
+
+        send_byte(2); // señal de start (envía lo que quieras, es para empezar)
+        while (can_send == SENDING)
+          ;
+
+        send(line1);
+        send_byte(4); // señal stop
+        while (can_send == SENDING)
+          ;
+      }
+    }
 
     /* USER CODE END WHILE */
 
