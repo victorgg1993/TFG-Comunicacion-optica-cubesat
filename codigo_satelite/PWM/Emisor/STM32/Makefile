@@ -62,6 +62,7 @@ Core/Src/system_stm32f1xx.c \
 Core/Src/usart.c \
 Core/Src/uart.c \
 Core/Src/transmisor.c \
+../../../TLE/src/TLE/TLE.c \
 Drivers/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c
 
 # ASM sources
@@ -123,8 +124,8 @@ C_INCLUDES =  \
 -IDrivers/STM32F1xx_HAL_Driver/Inc \
 -IDrivers/STM32F1xx_HAL_Driver/Inc/Legacy \
 -IDrivers/CMSIS/Device/ST/STM32F1xx/Include \
--IDrivers/CMSIS/Include
-
+-IDrivers/CMSIS/Include \
+-I../../../TLE/src/TLE
 
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
