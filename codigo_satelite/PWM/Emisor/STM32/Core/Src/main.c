@@ -12,6 +12,7 @@
 /* USER CODE BEGIN Includes */
 #include "uart.h"
 #include "transmisor.h"
+#include "../../../../../TLE/src/TLE/TLE.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -43,7 +44,7 @@ void SystemClock_Config(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
-
+char line1[SIZE_LINES];
 /* USER CODE END 0 */
 
 /**
@@ -80,6 +81,22 @@ int main(void)
 
   HAL_TIM_Base_Start_IT(&htim4);
 
+  init_line(LINE1, line1);                                      // inicializar línea
+  set_line(LINE1_CATALOG_NUM, "25544", line1);                  // Catalog number
+  set_line(LINE1_CLASSIFICATION, "U", line1);                   // Classification
+  set_line(LINE1_INTERN_DES_LAUNCH_YEAR, "98", line1);          // Launch year
+  set_line(LINE1_INTERN_DES_LAUNCH_NUM_YEAR, "067", line1);     // Num year
+  set_line(LINE1_INTERN_DESIGN, "A", line1);                    // International designator
+  set_line(LINE1_EPOCH_YEAR, "08", line1);                      // Epoch year
+  set_line(LINE1_EPOCH_DAY, "264.51782528", line1);             // Epoch day
+  set_line(LINE1_FIRST_DERIV_MEAN_MOTION, "-.00002182", line1); // 1 derivative mean motion
+  set_line(LINE1_SECOND_DERIV_MEAN_MOTION, "00000-0", line1);   // 2 derivative mean motion
+  set_line(LINE1_DRAG_TERM_COEF, "-11606-4", line1);            // drag term
+  set_line(LINE1_EPHEMERIS, "6", line1);                        // ephem type
+  set_line(LINE1_ELEM_SET_NUM, "292", line1);                   // Element set number
+  set_line(LINE1_CHECKSUM, "7", line1);                         // checksum
+  //line1[SIZE_LINES - 2] = 0;                                    // tmp
+
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -95,8 +112,13 @@ int main(void)
         while (leer_pin_pulsador() == GPIO_PIN_SET)
           ;
 
-        send("Holas");
-        send_byte(4);
+        send_byte(2); // señal de start (envía lo que quieras, es para empezar)
+        while (can_send == SENDING)
+          ;
+
+        //send("hola");
+        send(line1);
+        send_byte(4); // señal stop
         while (can_send == SENDING)
           ;
       }
