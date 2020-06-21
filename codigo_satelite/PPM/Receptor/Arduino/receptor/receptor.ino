@@ -28,11 +28,13 @@ LiquidCrystal lcd(PIN_RS, PIN_E, PIN_D4, PIN_D5, PIN_D6, PIN_D7);
 void setup()
 {
   Serial.begin(9600);
-  lcd.setCursor(0, 0);
   Serial.println("Init!");
 
+  lcd.setCursor(0, 0);
   lcd.begin(16, 2);
   lcd.print("Esperando datos");
+  lcd.setCursor(0, 1);
+  lcd.print("Modo: PPM");
 
   pinMode(PIN_PPM, INPUT);
   attachInterrupt(digitalPinToInterrupt(PIN_PPM), ISR_pin_PPM, CHANGE); // cambio estado pin = ISR PPM
@@ -60,6 +62,7 @@ void loop()
 
     while(1); // temporal
     delay(1000); // volvemos a empezar
+    
     lcd.clear();
     lcd.setCursor(0, 0);
     lcd.print("Esperando datos");
@@ -115,7 +118,7 @@ void imprimir_datos_recibidos()
 {
   Serial.print("Data: ");
 
-  for (int i = 0; i < sizeof(paquetes); i++)
+  for (int i = 0; i < strlen(paquetes); i++)
   {
     Serial.print((char)paquetes[i]);
   }
